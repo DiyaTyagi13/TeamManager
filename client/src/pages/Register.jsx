@@ -8,12 +8,13 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('MEMBER');
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await register(name, email, password);
+    const success = await register(name, email, password, role);
     if (success) navigate('/dashboard');
   };
 
@@ -37,6 +38,13 @@ const Register = () => {
           <div className="form-group">
             <label>Password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength="6" />
+          </div>
+          <div className="form-group">
+            <label>Role</label>
+            <select value={role} onChange={(e) => setRole(e.target.value)} required style={{ padding: '0.75rem 1rem', borderRadius: '0.5rem', background: 'rgba(0, 0, 0, 0.2)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'white' }}>
+              <option value="MEMBER">Team Member</option>
+              <option value="ADMIN">Administrator</option>
+            </select>
           </div>
           <button type="submit" className="btn-primary w-full">Register</button>
         </form>

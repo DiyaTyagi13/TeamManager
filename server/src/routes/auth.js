@@ -18,7 +18,7 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     try {
       const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -30,6 +30,7 @@ router.post(
           name,
           email,
           password: hashedPassword,
+          role: role === 'ADMIN' ? 'ADMIN' : 'MEMBER'
         },
       });
 
@@ -84,6 +85,18 @@ router.get('/me', authMiddleware, async (req, res) => {
     });
     if (!user) return res.status(404).json({ error: 'User not found' });
     res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.get('/users', authMiddleware, async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: { id: true, name: true, email: true }
+    });
+    res.json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
