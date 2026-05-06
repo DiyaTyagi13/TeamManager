@@ -1,0 +1,9 @@
+{
+  "name": "team-task-manager",
+  "version": "1.0.0",
+  "description": "Monorepo for TaskMaster",
+  "scripts": {
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && npx prisma generate --schema=./server/prisma/schema.prisma",
+    "start": "npm start --prefix server"
+  }
+}
