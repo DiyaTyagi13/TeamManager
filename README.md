@@ -1,83 +1,60 @@
 # Team Task Manager
 
-A full-stack team collaboration tool with role-based access control, built strictly to assignment requirements.
-
-## 🚀 Live Demo
-*(Insert your Railway Live URL here after deployment)*
+A full-stack team collaboration and project management tool built with Node.js, Express, React, and Prisma. This application was built to fulfill assignment requirements, featuring robust Role-Based Access Control (RBAC) and a monolithic deployment architecture on Railway.
 
 ## 🏗️ Tech Stack
-- **Frontend**: React + Vite
-- **Backend**: Node.js + Express
+- **Frontend**: React, Vite, Axios, React Router, Lucide React (Icons)
+- **Backend**: Node.js, Express, Express-Validator, JSON Web Tokens (JWT), Bcrypt
 - **Database**: PostgreSQL (via Prisma ORM)
 - **Deployment**: Railway (Monolithic Architecture)
 
 ## ✨ Key Features
-- **Authentication**: Secure JWT-based signup and login flows.
-- **Project & Team Management**: Users can create projects and become default Admins.
+- **Authentication**: Secure JWT-based signup and login flows. Users can register as either an `Administrator` or a `Team Member`.
+- **Project Management**: Administrators can create new projects and manage the overall structure.
+- **Team Management**: Project admins can invite registered users to join their specific projects.
+- **Task Creation & Assignment**: Admins can create tasks, set priorities (Low, Medium, High), define due dates, and assign them to specific team members.
+- **Status Tracking**: Interactive Kanban-style dashboard for tasks (To Do, In Progress, Done, Overdue). Members can update the status of tasks assigned to them.
 - **Role-Based Access Control (RBAC)**: 
-  - **Admins** can add members and create tasks.
-  - **Members** can view projects and update the statuses of their assigned tasks.
-- **Task Tracking**: Tasks support priorities (Low, Medium, High) and statuses (Todo, In Progress, Done, Overdue).
-- **Dashboard**: Real-time aggregation of task statuses across all assigned projects.
+  - `Administrators`: Full access to create projects, invite members, and manage tasks.
+  - `Members`: Restricted access. Can only view projects they are assigned to and update statuses for their own assigned tasks.
 
-## ⚙️ Local Setup Instructions
+## 💻 Local Development
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd team-task-manager
+### Prerequisites
+- Node.js (v18+)
+- PostgreSQL (Local or managed)
+
+### 1. Database Setup
+1. Create a PostgreSQL database.
+2. In the `server` directory, create a `.env` file:
    ```
-
-2. **Install Dependencies**
-   The root `package.json` manages both client and server installations.
-   ```bash
-   npm run install
-   ```
-
-3. **Environment Variables**
-   Create a `.env` file in the `server` directory:
-   ```env
-   DATABASE_URL="postgresql://user:pass@host/db?sslmode=require"
-   JWT_SECRET="your_super_secret_jwt_key"
+   DATABASE_URL="postgresql://user:password@localhost:5432/taskmanager"
+   JWT_SECRET="your_secret_key"
    PORT=5000
    ```
 
-You can set all the variable in the railway dashboard itself
+### 2. Backend Setup
+```bash
+cd server
+npm install
+npx prisma db push
+npm start
+```
 
-4. **Database Migration**
-   Push the Prisma schema to your PostgreSQL database.
-   ```bash
-   cd server
-   npx prisma db push
-   ```
+### 3. Frontend Setup
+```bash
+cd client
+npm install
+npm run dev
+```
 
-5. **Start Development Servers**
-   Open two terminal windows:
-   
-   *Terminal 1 (Backend)*
-   ```bash
-   cd server
-   npm run dev
-   ```
+## 🚂 Railway Deployment
+This project is configured for a **Zero-Config Monolithic Deployment** on Railway.
+1. Push the repository to GitHub.
+2. Connect the repository to a new Railway project.
+3. Add a PostgreSQL database plugin in Railway.
+4. In your Application block variables, link the `DATABASE_URL` using the magic wand icon and add a `JWT_SECRET`.
+5. Railway will automatically install dependencies, build the React frontend, generate the Prisma client, push the database schema, and serve the full application from a single URL!
 
-   *Terminal 2 (Frontend)*
-   ```bash
-   cd client
-   npm run dev
-   ```
-
-## 🚄 Railway Deployment Instructions
-
-This repository is pre-configured for a **Zero-Config Deployment** on Railway.
-
-1. Push this repository to GitHub.
-2. Log into [Railway.app](https://railway.app) and click **New Project**.
-3. Select **Provision PostgreSQL**.
-4. Click **New** again and select **GitHub Repo**, then select your repository.
-5. In the repository settings on Railway, go to **Variables** and add:
-   - `DATABASE_URL` (Reference the Postgres variable Railway generated).
-   - `JWT_SECRET` (Add a strong random string).
-6. Railway will automatically detect the root `package.json`, build the React frontend, generate the Prisma client, and start the Express server.
-
----
-*Built by Diya Tyagi CSE final year.*
+## 📝 License
+ISC License
