@@ -42,6 +42,8 @@ A full-stack team collaboration tool with role-based access control, built stric
    PORT=5000
    ```
 
+You can set all the variable in the railway dashboard itself
+
 4. **Database Migration**
    Push the Prisma schema to your PostgreSQL database.
    ```bash
@@ -78,4 +80,4 @@ This repository is pre-configured for a **Zero-Config Deployment** on Railway.
 6. Railway will automatically detect the root `package.json`, build the React frontend, generate the Prisma client, and start the Express server.
 
 ---
-*Built for the Full-Stack Developer Assessment.*
+*Built by Diya Tyagi CSE final year.*
