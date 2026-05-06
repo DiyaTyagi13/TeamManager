@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Monorepo for TaskMaster",
   "scripts": {
-    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && npm run prisma:generate --prefix server && npm run prisma:push --prefix server",
-    "start": "npm start --prefix server"
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && npm run prisma:generate --prefix server",
+    "start": "npm run prisma:push --prefix server && npm start --prefix server"
   }
 }
